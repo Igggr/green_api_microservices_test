@@ -1,6 +1,5 @@
-import { Task } from '@app/common';
-import { SUBMIT_TASK } from '@app/common/messages';
-import { BadRequestException, HttpException, Inject, Injectable } from '@nestjs/common';
+import { Task, SUBMIT_TASK } from '@app/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 
@@ -19,6 +18,5 @@ export class FirstService {
     console.log('Первый сервис получил ответ', reply);
     return reply;
   }
-
 
 }

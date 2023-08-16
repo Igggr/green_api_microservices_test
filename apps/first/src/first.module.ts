@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientsModule } from '@nestjs/microservices';
+
+import { RABBIT_OPTIONS, TASK_QUEUE } from '@app/common';
 import { FirstController } from './first.controller';
 import { FirstService } from './first.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({isGlobal: true}),
     // кому ОТПРАВЛЯТЬ сообщения
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'TASK_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'task_queue',
-          queueOptions: {
-            durable: false
-          },
-        },
+        useFactory: (configService: ConfigService) =>
+          RABBIT_OPTIONS(TASK_QUEUE, configService.get<string>('LAUNCHED_FROM')),
+        inject: [ConfigService],
       },
     ]),
   ],

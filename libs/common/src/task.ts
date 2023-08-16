@@ -1,6 +1,6 @@
 import { BadRequestException } from "@nestjs/common";
 
-type Operation = '+' | '-' | '*' | '/';
+type Operation = '+' | '-' | '*' | ':';
 
 export class Task {
     operation: Operation;
@@ -42,8 +42,8 @@ export class Task {
             return { operation: '-', parts: s.split('-') };
         } else if (s.includes('*')) {
             return { operation: '*', parts: s.split('*') };
-        } else if (s.includes('/')) {
-            return { operation: '/', parts: s.split('/') };
+        } else if (s.includes(':')) {
+            return { operation: ':', parts: s.split(':') };
         } else {
             throw new BadRequestException('Не поддерживаемая операция');
         }
@@ -54,7 +54,7 @@ export class Task {
             case '+': return this.left + this.right;
             case '-': return this.left - this.right;
             case '*': return this.left * this.right;
-            case '/': return this.left / this.right;
+            case ':': return this.left / this.right;
             default:
                 let x: never = this.operation;
 

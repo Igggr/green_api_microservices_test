@@ -5,7 +5,7 @@ import {
   Payload,
   RmqContext,
 } from '@nestjs/microservices';
-import { SUBMIT_TASK, Task } from '@app/common';
+import { SUBMIT_TASK, Task, ack } from '@app/common';
 
 @Controller()
 export class SecondController {
@@ -16,6 +16,8 @@ export class SecondController {
     @Ctx() context: RmqContext) {
 
     console.log('Second microservice recieved message', payload);
+    // ack(context);
+
     const task = Task.parse(payload);
     const response = task.execute();
     console.log('Second microservice replied with', response);

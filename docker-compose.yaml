@@ -1,6 +1,33 @@
 version: "3"
 services:
 
+  first:
+    build:
+      context: .
+      dockerfile: ./apps/first/Dockerfile
+    command: npm run start:dev:docker first
+    depends_on:
+      - rabbit
+      - second
+    ports:
+      - '3000:3000'
+    networks:
+      - rabbit
+    volumes:
+      - .:/usr/src/app
+  
+  second:
+    build:
+      context: .
+      dockerfile: ./apps/second/Dockerfile
+    command: npm run start:dev:docker second
+    depends_on:
+      - rabbit
+    networks:
+      - rabbit
+    volumes:
+      - .:/usr/src/app
+
   rabbit:
     image: rabbitmq:3.10.7-management
     container_name: rabbit

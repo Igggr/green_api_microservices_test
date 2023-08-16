@@ -1,3 +1,5 @@
 export * from './task';
-export * from './messages';
-
+export * from './rabbit/messages';
+export * from './rabbit/options';
+export * from './rabbit/queues';
+export * from './rabbit/ack';
