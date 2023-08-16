@@ -16,7 +16,7 @@ describe('FirstController', () => {
 
   describe('root', () => {
     it('should be defined"', () => {
-      expect(firstController.getHello()).toBeDefined();
+      expect(firstController.submitTask()).toBeDefined();
     });
   });
 });
