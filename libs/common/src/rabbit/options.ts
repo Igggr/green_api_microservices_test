@@ -5,10 +5,6 @@ export const RABBIT_OPTIONS = (queue: string, target: string) => {
         target === 'DOCKER'
           ? 'rabbit'     // микросервис запущен из контейнера
             : 'localhost'; // микросервис запущен из командной строки
-    
-    console.log('target:', target);
-    console.log('host:', host);
-    console.log('queue:', queue);
 
     return {
         transport: Transport.RMQ as const,

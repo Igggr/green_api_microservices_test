@@ -19,17 +19,13 @@ export class Task {
 
     static formTask(s: string): Task {
         const parts = this.getParts(s);
-        console.log(parts)
         if (parts.parts.length !== 2) {
             throw new BadRequestException('Не поддерживаемый формат операции');
         }
 
-        console.log(parts);
-
         const left = +parts.parts[0];
         const right = +parts.parts[1];
         if (isNaN(left) || isNaN(right)) {
-            console.log(parts[0], left, parts[1], right);
             throw new BadRequestException('оба аргумента должны быть числами');
         }
         return Task.parse({ left, right, operation: parts.operation })
